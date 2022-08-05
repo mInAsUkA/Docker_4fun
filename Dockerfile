@@ -14,7 +14,7 @@
 FROM ubuntu:latest
 
 #Actualizamos los paquetes e instalamos ssh y sudo 
-RUN apt-get update && apt-get install openssh-server sudo apache2 -y
+RUN apt-get update && apt-get install openssh-server sudo apache2 apache2-utils -y
 
 #Creamos el usuario dgarcia y lo añadimos al grupo de sudo 
 RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 dgarcia 
@@ -39,3 +39,6 @@ RUN service apache2 start
 
 #Exponemos el puerto del servicio HTTP 
 EXPOSE 80
+
+#Ejecutamos el demonio de apache 
+CMD ["apache2ctl", "-D", "FOREGROUND"]
